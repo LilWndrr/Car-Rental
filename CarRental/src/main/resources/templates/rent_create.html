@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 30px;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Rent Form</h1>
+    <form th:action="@{/rents}" th:object="${rent}" method="post">
+        <input type="hidden" th:field="*{rentId}" />
+
+        <div class="form-group">
+            <label>Customer:</label>
+            <select th:field="*{customer.customerId}" class="form-control" required>
+                <option th:each="customer : ${customers}" th:value="${customer.customerId}" th:text="${customer.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Salesman:</label>
+            <select name="salesmanId" class="form-control" required>
+                <option th:each="salesman : ${salesmen}" th:value="${salesman.salesmanId}" th:text="${salesman.name}" ></option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label>Car:</label>
+            <input type="text" class="form-control" th:value="${car.brand + ' ' + car.model}" readonly required/>
+            <input type="hidden" th:field="*{car.carId}" th:value="${car.carId}" required/>
+        </div>
+
+        <div class="form-group">
+            <label>Rent Date:</label>
+            <input type="date" th:field="*{rentDate}" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label>Return Date:</label>
+            <input type="date" th:field="*{returnDate}" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label>Cost:</label>
+            <input type="number" th:field="*{cost}" class="form-control" required/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <a th:href="@{/rents}" class="btn btn-secondary mt-3">Back to Rent List</a>
+</div>
+</body>
+</html>

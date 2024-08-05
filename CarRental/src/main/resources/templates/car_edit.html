@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Rental Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Car Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    </div>
+</nav>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card">
+                <div class="card-header">
+                    Edit Car
+                </div>
+                <div class="card-body">
+                    <form method="POST" th:action="@{/cars/{id}(id=${car.carId})}" th:object="${car}">
+                        <div class="form-group">
+                            <label>Car Brand</label>
+                            <input type="text" name="brand" th:field="*{brand}" class="form-control"
+                                   placeholder="Enter Car's Brand" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Car Model</label>
+                            <input type="text" name="model" th:field="*{model}" class="form-control"
+                                   placeholder="Enter Car's Model" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Car's Year</label>
+                            <input type="number" name="year" th:field="*{year}" class="form-control"
+                                   placeholder="Enter Car's Year" min="2010" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Car's License Plate</label>
+                            <input type="text" name="licensePlate" th:field="*{licensePlate}" class="form-control"
+                                   placeholder="Enter Car's License Plate" required/>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f5f5f5; /* Light grey background */
+        }
+        .card {
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        .card-text {
+            margin-bottom: 1rem;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        .btn-primary-custom {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary-custom:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-warning-custom {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        .btn-warning-custom:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+        .btn-danger-custom {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger-custom:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .btn-success-custom {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success-custom:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark py-3">
+    <a class="navbar-brand" href="#">Cars Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/cars}">Cars Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/customers}">Customers Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/salesmen}">Salesmen Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/rents}">Rent Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-lg-3">
+            <h1>Cars List</h1>
+        </div>
+        <div class="col-lg-9 d-flex justify-content-end align-items-center">
+            <a th:href="@{/cars/rented}" class="btn btn-primary-custom">Cars In Rent</a>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-3">
+            <a th:href="@{/cars/new}" class="btn btn-primary-custom btn-sm mb-3">Add New Car</a>
+        </div>
+    </div>
+    <div class="row">
+        <div th:each="car : ${cars}" class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img th:src="@{'/images/'+${car.image}}" class="card-img-top img-fluid" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${car.brand}"></h5>
+                    <p class="card-text">
+                        <strong>Model:</strong> <span th:text="${car.model}"></span><br>
+                        <strong>Year:</strong> <span th:text="${car.year}"></span>
+                    </p>
+                    <div>
+                        <a th:href="@{/cars/edit/{id}(id=${car.carId})}" class="btn btn-warning-custom">Update</a>
+                        <a th:href="@{/cars/delete/{id}(id=${car.carId})}" class="btn btn-danger-custom">Delete</a>
+                        <a th:href="@{/cars/lease/{id}(id=${car.carId})}" class="btn btn-success-custom">Lease</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">© 2024 Cars Management</span>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGz1lp3L5fPT09w64r1BvOnI9DVm7B4Sv49T8VARk5iN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-ho+j7jyWK8fNQe+A1j7A6B1mqe2f43FdtF0zpphwy07tgzmCQDzJtAyxH7tNQ3B3" crossorigin="anonymous"></script>
+</body>
+</html>
